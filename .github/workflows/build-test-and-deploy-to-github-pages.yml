@@ -20,11 +20,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test_and_deploy:
-    name: Test and Deploy
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       # Make a copy of this repository visible to the GitHub Actions execution context.
@@ -39,6 +36,14 @@ jobs:
         with:
           # We just want to copy HTML files from within /src/web -- everything above/beside it is not meant to live on the GitHub Pages website.
           path: './src/web/'
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      steps:
       # Actually upload the HTML files we grabbed onto GitHub Pages website hosting.
       - name: Deploy to GitHub Pages
         id: deployment
