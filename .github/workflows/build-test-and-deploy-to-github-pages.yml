@@ -5,11 +5,6 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-  # Runs on pull requests to the default branch
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -32,15 +27,19 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      # Make a copy of this repository visible to the GitHub Actions execution context.
       - name: Checkout
         uses: actions/checkout@v3
+      # Enable GitHub Pages and extract various metadata about the website we intend to build from this repository.
       - name: Setup Pages
         uses: actions/configure-pages@v3
+      # Grab the correct HTML files from this repository and get them ready for putting on the GitHub Pages website associated with this repository:  
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
+          # We just want to copy HTML files from within /src/web -- everything above/beside it is not meant to live on the GitHub Pages website.
           path: './src/web/'
+      # Actually upload the HTML files we grabbed onto GitHub Pages website hosting.
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
