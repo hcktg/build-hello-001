@@ -10,3 +10,4 @@ const config = {
 
 // DEBUG LINE ONLY:  https://github.com/microsoft/playwright/issues/11060
 console.log('in playwright.config.ts, __dirname is', __dirname);
+console.log('in playwright.config.ts, testDir is', path.join(__dirname, 'tests'));
