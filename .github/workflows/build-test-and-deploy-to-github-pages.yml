@@ -53,6 +53,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Set MY_CUSTOM_BASE_URL env
+        run: echo "MY_CUSTOM_BASE_URL=${{ steps.deployment.outputs.page_url }}" >> $GITHUB_ENV
       - uses: actions/setup-node@v3
       - name: Install dependencies
         run: npm i
