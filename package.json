@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@playwright/test": "latest",
+    "playwright": "latest"
+  },
+  "dependencies": {
+    "dotenv": "latest"
+  }
+}
