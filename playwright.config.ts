@@ -1,4 +1,5 @@
 import { PlaywrightTestConfig } from '@playwright/test';
+const path = require('path');
 
 const config = {
   testDir: path.join(__dirname, 'tests'), //testDir: './tests',
